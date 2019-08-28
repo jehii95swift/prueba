@@ -55,6 +55,7 @@ extension OneViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCollectionViewCell", for: indexPath) as! SelectCollectionViewCell
         let movies = allMovies[indexPath.row]
         cell.configureInfo(movies: movies)
+        cell.configurarImage(movie: movies)
         return cell
     }
 }

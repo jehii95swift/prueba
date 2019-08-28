@@ -20,9 +20,11 @@ class SelectCollectionViewCell: UICollectionViewCell {
     func configureInfo(movies: SelectMovieOrTv) {
         titleLbl.text = movies.originalTitle
         
+        
     }
-    func configurarImage(urlImageMovie: String) {
-        let url = URL(string: urlImageMovie)
+    func configurarImage(movie: SelectMovieOrTv) {
+        let urlImage = "https://image.tmdb.org/t/p/w500\(movie.image)"
+        let url = URL(string: urlImage)
         let data = try? Data(contentsOf: url!)
         
         if let data = data {
