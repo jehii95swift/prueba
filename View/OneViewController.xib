@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OneViewController" customModule="Netix" customModuleProvider="target">
             <connections>
                 <outlet property="busquedaTextField" destination="CIS-2r-qir" id="x8g-XE-1az"/>
-                <outlet property="collectionView" destination="OOD-Jx-bFs" id="G14-ad-seq"/>
+                <outlet property="collectionView" destination="OOD-Jx-bFs" id="QQu-Q6-8wH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

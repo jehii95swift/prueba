@@ -15,24 +15,32 @@ class OneViewController: UIViewController {
     var controller = Controller()
     var allMovies: [SelectMovieOrTv] = []
     
+    init() {
+        super.init(nibName: "OneViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // collectionView.dataSource = self
-        //collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         controller.request()
-       //  register()
+        register()
         NotificationCenter.default.addObserver(self, selector: #selector(notificationMovies), name: NSNotification.Name(rawValue: "ya estan las peliculas"), object: nil)
     }
     
     @objc func notificationMovies() {
         self.allMovies = controller.getMovies()
-        //collectionView.reloadData()
+        collectionView.reloadData()
+        print("hey")
     }
     
-   /* func register(){
+    func register(){
         collectionView.register(UINib(nibName: "SelectCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SelectCollectionViewCell")
-    } */
+    }
     
  
 }
