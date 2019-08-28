@@ -58,6 +58,15 @@ extension OneViewController: UICollectionViewDataSource {
         cell.configurarImage(movie: movies)
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController = DetailMovieViewController()
+        detailViewController.loadViewIfNeeded()
+        let movies = allMovies[indexPath.row]
+        detailViewController.configureDetail(movie: movies)
+        detailViewController.configurarImagebig(movie: movies)
+        detailViewController.configurarImage(movie: movies)
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
 }
 extension OneViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

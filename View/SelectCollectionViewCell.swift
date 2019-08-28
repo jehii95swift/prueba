@@ -10,7 +10,6 @@ import UIKit
 
 class SelectCollectionViewCell: UICollectionViewCell {
     
-    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var imageImg: UIImageView!
     
