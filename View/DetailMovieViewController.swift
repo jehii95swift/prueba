@@ -29,6 +29,11 @@ class DetailMovieViewController: UIViewController {
         dateMovieLbl.text = movie.date
         popularLbl.text = "\(movie.popular)"
         voteAverageLbl.text = "\(movie.voteAverage)"
+        titleMovieLbl.text = movie.originalName
+        titleMovieLbl.text = movie.name
+        dateMovieLbl.text = movie.dateTv
+        
+        
     }
     
     func configurarImage(movie: SelectMovieOrTv) {

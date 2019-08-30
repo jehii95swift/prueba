@@ -14,6 +14,11 @@
             <connections>
                 <outlet property="busquedaTextField" destination="CIS-2r-qir" id="x8g-XE-1az"/>
                 <outlet property="collectionView" destination="OOD-Jx-bFs" id="QQu-Q6-8wH"/>
+                <outlet property="moviesBtn" destination="RcC-8J-RqU" id="FVn-wk-M7k"/>
+                <outlet property="popularBtn" destination="Bu9-2i-g3X" id="Z8i-Ou-d7f"/>
+                <outlet property="topRatedBtn" destination="Tch-Vx-jnk" id="VD6-Rp-yEl"/>
+                <outlet property="tvBtn" destination="oPw-fF-qK1" id="wWD-bg-w5b"/>
+                <outlet property="upcomingBtn" destination="Bfc-4Z-lv6" id="9hZ-jc-EcU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,6 +34,9 @@
                     <state key="normal" title="Movies">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="moviesPressed:" destination="-1" eventType="touchUpInside" id="5nD-V2-T3c"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="  Netix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKT-Av-hZo">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="109"/>
@@ -45,6 +53,9 @@
                     <state key="normal" title="Tv">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="tvPressed:" destination="-1" eventType="touchUpInside" id="ERh-m7-B7I"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bu9-2i-g3X">
                     <rect key="frame" x="136" y="109" width="78" height="36"/>
@@ -53,6 +64,9 @@
                     <state key="normal" title="Popular">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="popularBtnPressed:" destination="-1" eventType="touchUpInside" id="4WS-jW-vUj"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfc-4Z-lv6">
                     <rect key="frame" x="290" y="109" width="85" height="36"/>
@@ -61,6 +75,9 @@
                     <state key="normal" title="Upcoming">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="upcomingBtnPressed:" destination="-1" eventType="touchUpInside" id="su4-QM-WZW"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tch-Vx-jnk">
                     <rect key="frame" x="210" y="109" width="82" height="36"/>
@@ -69,15 +86,21 @@
                     <state key="normal" title="Top Rated">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="topRatedBtnPressed:" destination="-1" eventType="touchUpInside" id="Hcq-tw-DjU"/>
+                    </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Titles, Movies, Tv " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CIS-2r-qir">
                     <rect key="frame" x="8" y="165" width="300" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="texfieldChanged:" destination="-1" eventType="editingChanged" id="j5T-Cp-kwL"/>
+                    </connections>
                 </textField>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="OOD-Jx-bFs">
-                    <rect key="frame" x="0.0" y="226" width="375" height="441"/>
+                    <rect key="frame" x="0.0" y="253" width="375" height="414"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yDq-n3-CqV">
@@ -95,6 +118,9 @@
                     <rect key="frame" x="316" y="165" width="30" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="send"/>
+                    <connections>
+                        <action selector="sendBtnPressed:" destination="-1" eventType="touchUpInside" id="rg5-QI-nbd"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

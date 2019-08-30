@@ -10,10 +10,11 @@ import Foundation
 
 class Controller {
 
+    
     let services = Services()
     
-    func request() {
-        services.request()
+    func request(type: String, category: String) {
+        services.request(type: type, category: category)
     }
     func getMovies() -> [SelectMovieOrTv] {
         let getMovie = services.allmovies

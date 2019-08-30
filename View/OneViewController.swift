@@ -10,10 +10,18 @@ import UIKit
 
 class OneViewController: UIViewController {
     
+    
+    @IBOutlet weak var upcomingBtn: UIButton!
+    @IBOutlet weak var topRatedBtn: UIButton!
+    @IBOutlet weak var popularBtn: UIButton!
+    @IBOutlet weak var tvBtn: UIButton!
+    @IBOutlet weak var moviesBtn: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var busquedaTextField: UITextField!
     var controller = Controller()
     var allMovies: [SelectMovieOrTv] = []
+    var type: String = "movie"
+    var category: String = "popular"
     
     init() {
         super.init(nibName: "OneViewController", bundle: nil)
@@ -27,7 +35,7 @@ class OneViewController: UIViewController {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        controller.request()
+        controller.request(type: type, category: category)
         register()
         NotificationCenter.default.addObserver(self, selector: #selector(notificationMovies), name: NSNotification.Name(rawValue: "ya estan las peliculas"), object: nil)
     }
@@ -36,6 +44,46 @@ class OneViewController: UIViewController {
         self.allMovies = controller.getMovies()
         collectionView.reloadData()
         print("hey")
+    }
+    
+    
+    @IBAction func moviesPressed(_ sender: Any) {
+        type = "movie"
+        controller.request(type: type, category: category)
+        
+    }
+    
+    @IBAction func tvPressed(_ sender: Any) {
+        type = "tv"
+        controller.request(type: type, category: category)
+    }
+    
+    @IBAction func popularBtnPressed(_ sender: Any) {
+        category = "popular"
+        controller.request(type: type, category: category)
+    }
+    
+    @IBAction func topRatedBtnPressed(_ sender: Any) {
+        category = "top_rated"
+        controller.request(type: type, category: category)
+    }
+    
+    @IBAction func upcomingBtnPressed(_ sender: Any) {
+        if type == "tv" {
+            upcomingBtn.setTitle("airing_today", for: .normal)
+            category = "airing_today"
+            
+        }else {
+            category = "upcoming"
+            upcomingBtn.setTitle("upcoming", for: .normal)
+        }
+        controller.request(type: type, category: category)
+    }
+    
+    @IBAction func texfieldChanged(_ sender: Any) {
+    }
+    
+    @IBAction func sendBtnPressed(_ sender: Any) {
     }
     
     func register(){
@@ -58,6 +106,7 @@ extension OneViewController: UICollectionViewDataSource {
         cell.configurarImage(movie: movies)
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailMovieViewController()
         detailViewController.loadViewIfNeeded()

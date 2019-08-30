@@ -19,6 +19,11 @@ class SelectMovieOrTv: Mappable {
     var popular: Int = 0
     var voteAverage: Int = 0
     var date: String = ""
+    var originalName: String = ""
+    var name: String = ""
+    var dateTv: String = ""
+    
+    
 
     
     
@@ -34,6 +39,10 @@ class SelectMovieOrTv: Mappable {
         popular <- map["popularity"]
         voteAverage  <- map["vote_average"]
         date <- map["release_date"]
+        originalName <- map["original_name"]
+        name <- map["name"]
+        dateTv <- map["first_air_date"]
+        
         
     }
 }
