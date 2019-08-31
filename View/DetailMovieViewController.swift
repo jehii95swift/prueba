@@ -23,17 +23,24 @@ class DetailMovieViewController: UIViewController {
         super.viewDidLoad()
     }
     func configureDetail(movie: SelectMovieOrTv) {
-        titleMovieLbl.text = movie.originalTitle
+        
         overviewMovieLbl.text = movie.overview
-        smallTitleLbl.text = movie.title
-        dateMovieLbl.text = movie.date
-        popularLbl.text = "\(movie.popular)"
-        voteAverageLbl.text = "\(movie.voteAverage)"
-        titleMovieLbl.text = movie.originalName
-        titleMovieLbl.text = movie.name
-        dateMovieLbl.text = movie.dateTv
-        
-        
+        smallTitleLbl.text = "\(movie.title)"
+        dateMovieLbl.text = "Release Date: \(movie.date)"
+        popularLbl.text = "Popularity: \(movie.popular)"
+        voteAverageLbl.text = "User Score: \(movie.voteAverage)%"
+        smallTitleLbl.text = "\(movie.name)"
+        dateMovieLbl.text = "Release Date: \(movie.dateTv)"
+        if movie.originalTitle.isEmpty {
+            titleMovieLbl.text = movie.originalName
+        } else {
+            titleMovieLbl.text = movie.originalTitle
+        }
+        if movie.name.isEmpty {
+            smallTitleLbl.text = movie.title
+        } else {
+            smallTitleLbl.text = movie.name
+        }
     }
     
     func configurarImage(movie: SelectMovieOrTv) {

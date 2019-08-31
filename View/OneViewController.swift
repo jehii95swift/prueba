@@ -11,17 +11,46 @@ import UIKit
 class OneViewController: UIViewController {
     
     
-    @IBOutlet weak var upcomingBtn: UIButton!
-    @IBOutlet weak var topRatedBtn: UIButton!
-    @IBOutlet weak var popularBtn: UIButton!
-    @IBOutlet weak var tvBtn: UIButton!
-    @IBOutlet weak var moviesBtn: UIButton!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var upcomingBtn: UIButton! {
+        didSet {
+            upcomingBtn.layer.borderColor = UIColor.black.cgColor
+            upcomingBtn.layer.borderWidth = 1
+        }
+    }
+    @IBOutlet weak var topRatedBtn: UIButton! {
+        didSet {
+            topRatedBtn.layer.borderColor = UIColor.black.cgColor
+            topRatedBtn.layer.borderWidth = 1
+        }
+    }
+    @IBOutlet weak var popularBtn: UIButton! {
+        didSet {
+            
+            popularBtn.layer.borderColor = UIColor.white.cgColor
+            popularBtn.layer.borderWidth = 1
+        }
+    }
+    @IBOutlet weak var tvBtn: UIButton! {
+        didSet {
+            tvBtn.layer.borderColor = UIColor.black.cgColor
+            tvBtn.layer.borderWidth = 1
+        }
+    }
+    
+    @IBOutlet weak var moviesBtn: UIButton! {
+        didSet {
+            moviesBtn.layer.borderColor = UIColor.white.cgColor
+            moviesBtn.layer.borderWidth = 1
+        }
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var busquedaTextField: UITextField!
     var controller = Controller()
     var allMovies: [SelectMovieOrTv] = []
     var type: String = "movie"
     var category: String = "popular"
+    
     
     init() {
         super.init(nibName: "OneViewController", bundle: nil)
@@ -31,6 +60,7 @@ class OneViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
@@ -38,6 +68,10 @@ class OneViewController: UIViewController {
         controller.request(type: type, category: category)
         register()
         NotificationCenter.default.addObserver(self, selector: #selector(notificationMovies), name: NSNotification.Name(rawValue: "ya estan las peliculas"), object: nil)
+        view.backgroundColor = .black
+        
+        
+        
     }
     
     @objc func notificationMovies() {
@@ -48,49 +82,72 @@ class OneViewController: UIViewController {
     
     
     @IBAction func moviesPressed(_ sender: Any) {
-        type = "movie"
-        controller.request(type: type, category: category)
+        
+        if type != "movie" {
+            type = "movie"
+            upcomingBtn.setTitle("UpComing", for: .normal)
+            controller.request(type: type, category: category)
+            moviesBtn.layer.borderColor = UIColor.white.cgColor
+            tvBtn.layer.borderColor = UIColor.black.cgColor
+        }
+    }
+    
+    
+    @IBAction func tvPressed(_ sender: Any) {
+        if type != "tv" {
+            type = "tv"
+            upcomingBtn.setTitle("Airing_today", for: .normal)
+            controller.request(type: type, category: category)
+            tvBtn.layer.borderColor = UIColor.white.cgColor
+            moviesBtn.layer.borderColor = UIColor.black.cgColor
+        }
         
     }
     
-    @IBAction func tvPressed(_ sender: Any) {
-        type = "tv"
-        controller.request(type: type, category: category)
-    }
-    
     @IBAction func popularBtnPressed(_ sender: Any) {
-        category = "popular"
-        controller.request(type: type, category: category)
+        if category != "popular" {
+            category = "popular"
+            controller.request(type: type, category: category)
+            popularBtn.layer.borderColor = UIColor.white.cgColor
+            topRatedBtn.layer.borderColor = UIColor.black.cgColor
+            upcomingBtn.layer.borderColor = UIColor.black.cgColor
+        }
     }
     
     @IBAction func topRatedBtnPressed(_ sender: Any) {
-        category = "top_rated"
-        controller.request(type: type, category: category)
-    }
-    
-    @IBAction func upcomingBtnPressed(_ sender: Any) {
-        if type == "tv" {
-            upcomingBtn.setTitle("airing_today", for: .normal)
-            category = "airing_today"
-            
-        }else {
-            category = "upcoming"
-            upcomingBtn.setTitle("upcoming", for: .normal)
+        if category != "top_rated" {
+            category = "top_rated"
+            controller.request(type: type, category: category)
+            topRatedBtn.layer.borderColor = UIColor.white.cgColor
+            popularBtn.layer.borderColor = UIColor.black.cgColor
+            upcomingBtn.layer.borderColor = UIColor.black.cgColor
         }
-        controller.request(type: type, category: category)
+    }
+    @IBAction func upcomingBtnPressed(_ sender: Any) {
+        if category != "upcoming" {
+            category = "upcoming"
+            controller.request(type: type, category: category)
+            upcomingBtn.layer.borderColor = UIColor.white.cgColor
+            popularBtn.layer.borderColor = UIColor.black.cgColor
+            topRatedBtn.layer.borderColor = UIColor.black.cgColor
+            
+        }
     }
     
     @IBAction func texfieldChanged(_ sender: Any) {
-    }
-    
-    @IBAction func sendBtnPressed(_ sender: Any) {
+        let textSearch = textField.text ?? ""
+        let arraySerch = controller.search(texto: textSearch)
+        allMovies  = arraySerch
+        collectionView.reloadData()
+        
+        
+        
+       
     }
     
     func register(){
         collectionView.register(UINib(nibName: "SelectCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SelectCollectionViewCell")
     }
-    
- 
 }
 
 extension OneViewController: UICollectionViewDataSource {
@@ -102,8 +159,8 @@ extension OneViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCollectionViewCell", for: indexPath) as! SelectCollectionViewCell
         let movies = allMovies[indexPath.row]
-        cell.configureInfo(movies: movies)
-        cell.configurarImage(movie: movies)
+        cell.configureInfo(movie: movies)
+
         return cell
     }
     
@@ -114,12 +171,13 @@ extension OneViewController: UICollectionViewDataSource {
         detailViewController.configureDetail(movie: movies)
         detailViewController.configurarImagebig(movie: movies)
         detailViewController.configurarImage(movie: movies)
+    
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 extension OneViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 375, height: 150)
+        return CGSize(width: 410, height: 250)
     }
 }
 

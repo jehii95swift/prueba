@@ -13,6 +13,11 @@ import ObjectMapper
 class Services {
     var allmovies:[SelectMovieOrTv] = []
     
+    func search(text: String) -> [SelectMovieOrTv] {
+        let results = allmovies.filter { $0.trueName.contains(text) }
+        return results
+    }
+    
     func request(type: String, category: String) {
         
         let urlString = "https://api.themoviedb.org/3/\(type)/\(category)?api_key= e2c0dde13d5b718de4f26a0f361c5cd2&language=en_US"

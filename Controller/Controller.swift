@@ -21,4 +21,8 @@ class Controller {
         return getMovie
     }
     
+    func search(texto: String) -> [SelectMovieOrTv] {
+        let serchsMovies = services.search(text: texto)
+        return serchsMovies
+    }
 }

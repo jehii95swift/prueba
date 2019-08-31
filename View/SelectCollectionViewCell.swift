@@ -16,13 +16,16 @@ class SelectCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    func configureInfo(movies: SelectMovieOrTv) {
-        titleLbl.text = movies.originalTitle
-        
-        
-    }
-    func configurarImage(movie: SelectMovieOrTv) {
-        let urlImage = "https://image.tmdb.org/t/p/w500\(movie.image)"
+    
+    
+    func configureInfo(movie: SelectMovieOrTv) {
+        if movie.originalName.isEmpty {
+            titleLbl.text = movie.originalTitle
+        } else {
+            titleLbl.text = movie.originalName
+        }
+
+        let urlImage = "https://image.tmdb.org/t/p/w500\(movie.imageBig)"
         let url = URL(string: urlImage)
         let data = try? Data(contentsOf: url!)
         
