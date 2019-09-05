@@ -7,22 +7,13 @@
 //
 
 import Foundation
+import UIKit
 
-class Controller {
-
+final class Controller {
     
-    let services = Services()
+    private let services = Services()
     
-    func request(type: String, category: String) {
-        services.request(type: type, category: category)
-    }
-    func getMovies() -> [SelectMovieOrTv] {
-        let getMovie = services.allmovies
-        return getMovie
-    }
-    
-    func search(texto: String) -> [SelectMovieOrTv] {
-        let serchsMovies = services.search(text: texto)
-        return serchsMovies
+    func request(type: ShowType, category: ShowCategory, completion: @escaping ([Movie]) -> ()) {
+        services.request(type: type, category: category, completion: completion)
     }
 }

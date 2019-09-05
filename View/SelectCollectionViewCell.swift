@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import Hero
 
-class SelectCollectionViewCell: UICollectionViewCell {
+final class SelectCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var imageImg: UIImageView!
+    @IBOutlet private weak var titleLbl: UILabel!
+    @IBOutlet private weak var imageImg: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.hero.isEnabled = true
     }
     
-    
-    func configureInfo(movie: SelectMovieOrTv) {
+    func configureInfo(movie: Movie) {
         if movie.originalName.isEmpty {
             titleLbl.text = movie.originalTitle
         } else {
@@ -32,6 +33,7 @@ class SelectCollectionViewCell: UICollectionViewCell {
         if let data = data {
             let image = UIImage(data: data)
             imageImg.image = image
+            imageImg.hero.id = "movieImage"
         }
         
     }

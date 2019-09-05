@@ -7,50 +7,63 @@
 //
 
 import UIKit
+import Hero
 
-class OneViewController: UIViewController {
+enum ShowType {
+    case movie
+    case tv
+}
+enum ShowCategory {
+    case popular
+    case top_rated
+    case upcoming
+    case airing_today
+}
+
+final class OneViewController: UIViewController {
     
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var busquedaTextField: UITextField!
+    @IBOutlet private weak var textField: UITextField!
     
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var upcomingBtn: UIButton! {
+    @IBOutlet private weak var upcomingBtn: UIButton! {
         didSet {
             upcomingBtn.layer.borderColor = UIColor.black.cgColor
             upcomingBtn.layer.borderWidth = 1
         }
     }
-    @IBOutlet weak var topRatedBtn: UIButton! {
+    @IBOutlet private weak var topRatedBtn: UIButton! {
         didSet {
             topRatedBtn.layer.borderColor = UIColor.black.cgColor
             topRatedBtn.layer.borderWidth = 1
         }
     }
-    @IBOutlet weak var popularBtn: UIButton! {
+    @IBOutlet private weak var popularBtn: UIButton! {
         didSet {
             
             popularBtn.layer.borderColor = UIColor.white.cgColor
             popularBtn.layer.borderWidth = 1
         }
     }
-    @IBOutlet weak var tvBtn: UIButton! {
+    @IBOutlet private weak var tvBtn: UIButton! {
         didSet {
             tvBtn.layer.borderColor = UIColor.black.cgColor
             tvBtn.layer.borderWidth = 1
         }
     }
     
-    @IBOutlet weak var moviesBtn: UIButton! {
+    @IBOutlet private weak var moviesBtn: UIButton! {
         didSet {
             moviesBtn.layer.borderColor = UIColor.white.cgColor
             moviesBtn.layer.borderWidth = 1
         }
     }
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var busquedaTextField: UITextField!
-    var controller = Controller()
-    var allMovies: [SelectMovieOrTv] = []
-    var type: String = "movie"
-    var category: String = "popular"
     
+    private let controller = Controller()
+    private var allMovies: [Movie] = []
+    private var tempMovies: [Movie] = []
+    private var type: ShowType = .movie
+    private var category: ShowCategory = .popular
     
     init() {
         super.init(nibName: "OneViewController", bundle: nil)
@@ -60,92 +73,110 @@ class OneViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.delegate = self
-        controller.request(type: type, category: category)
+        requestMovies()
         register()
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationMovies), name: NSNotification.Name(rawValue: "ya estan las peliculas"), object: nil)
+
         view.backgroundColor = .black
-        
-        
-        
+        self.hero.isEnabled = true
+    }
+    func requestMovies() {
+        controller.request(type: type, category: category, completion: { movies in
+            self.allMovies = movies
+            self.tempMovies = movies
+            self.collectionView.reloadData()
+        })
+
     }
     
-    @objc func notificationMovies() {
-        self.allMovies = controller.getMovies()
-        collectionView.reloadData()
-        print("hey")
-    }
-    
-    
-    @IBAction func moviesPressed(_ sender: Any) {
-        
-        if type != "movie" {
-            type = "movie"
-            upcomingBtn.setTitle("UpComing", for: .normal)
-            controller.request(type: type, category: category)
-            moviesBtn.layer.borderColor = UIColor.white.cgColor
-            tvBtn.layer.borderColor = UIColor.black.cgColor
+    @IBAction private func moviesPressed(_ sender: Any) {
+        guard type != .movie else {
+            return
         }
-    }
-    
-    
-    @IBAction func tvPressed(_ sender: Any) {
-        if type != "tv" {
-            type = "tv"
-            upcomingBtn.setTitle("Airing_today", for: .normal)
-            controller.request(type: type, category: category)
-            tvBtn.layer.borderColor = UIColor.white.cgColor
-            moviesBtn.layer.borderColor = UIColor.black.cgColor
+        if category == .airing_today {
+            category = .upcoming
         }
         
+        type = .movie
+        upcomingBtn.setTitle("UpComing", for: .normal)
+        requestMovies()
+        moviesBtn.layer.borderColor = UIColor.white.cgColor
+        tvBtn.layer.borderColor = UIColor.black.cgColor
     }
     
-    @IBAction func popularBtnPressed(_ sender: Any) {
-        if category != "popular" {
-            category = "popular"
-            controller.request(type: type, category: category)
-            popularBtn.layer.borderColor = UIColor.white.cgColor
-            topRatedBtn.layer.borderColor = UIColor.black.cgColor
-            upcomingBtn.layer.borderColor = UIColor.black.cgColor
+    
+    @IBAction private func tvPressed(_ sender: Any) {
+        guard type != .tv else {
+            return
         }
+        if category == .upcoming {
+            category = .airing_today
+        }
+        type = .tv
+        upcomingBtn.setTitle("Airing_today", for: .normal)
+        requestMovies()
+        tvBtn.layer.borderColor = UIColor.white.cgColor
+        moviesBtn.layer.borderColor = UIColor.black.cgColor
+        
     }
     
-    @IBAction func topRatedBtnPressed(_ sender: Any) {
-        if category != "top_rated" {
-            category = "top_rated"
-            controller.request(type: type, category: category)
-            topRatedBtn.layer.borderColor = UIColor.white.cgColor
-            popularBtn.layer.borderColor = UIColor.black.cgColor
-            upcomingBtn.layer.borderColor = UIColor.black.cgColor
+    @IBAction private func popularBtnPressed(_ sender: Any) {
+        guard category != .popular else {
+            return
         }
-    }
-    @IBAction func upcomingBtnPressed(_ sender: Any) {
-        if category != "upcoming" {
-            category = "upcoming"
-            controller.request(type: type, category: category)
-            upcomingBtn.layer.borderColor = UIColor.white.cgColor
-            popularBtn.layer.borderColor = UIColor.black.cgColor
-            topRatedBtn.layer.borderColor = UIColor.black.cgColor
-            
-        }
+
+        category = .popular
+        requestMovies()
+        popularBtn.layer.borderColor = UIColor.white.cgColor
+        topRatedBtn.layer.borderColor = UIColor.black.cgColor
+        upcomingBtn.layer.borderColor = UIColor.black.cgColor
     }
     
-    @IBAction func texfieldChanged(_ sender: Any) {
+    @IBAction private func topRatedBtnPressed(_ sender: Any) {
+        guard category != .top_rated else {
+            return
+        }
+        
+        category = .top_rated
+        requestMovies()
+        topRatedBtn.layer.borderColor = UIColor.white.cgColor
+        popularBtn.layer.borderColor = UIColor.black.cgColor
+        upcomingBtn.layer.borderColor = UIColor.black.cgColor
+    }
+    @IBAction private func upcomingBtnPressed(_ sender: Any) {
+        guard category != .upcoming else {
+            return
+        }
+    
+        if type == .tv {
+            category = .airing_today
+        } else {
+            category = .upcoming
+        }
+        requestMovies()
+        upcomingBtn.layer.borderColor = UIColor.white.cgColor
+        popularBtn.layer.borderColor = UIColor.black.cgColor
+        topRatedBtn.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    @IBAction private func texfieldChanged(_ sender: Any) {
+        
         let textSearch = textField.text ?? ""
-        let arraySerch = controller.search(texto: textSearch)
-        allMovies  = arraySerch
+        let arraySerch = search(text: textSearch)
+        tempMovies = arraySerch
         collectionView.reloadData()
-        
-        
-        
-       
+
     }
     
-    func register(){
+    private func search(text: String) -> [Movie] {
+        let results = allMovies.filter { $0.trueName.contains(text) }
+        return results
+    }
+
+    private func register(){
         collectionView.register(UINib(nibName: "SelectCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SelectCollectionViewCell")
     }
 }
@@ -153,12 +184,12 @@ class OneViewController: UIViewController {
 extension OneViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allMovies.count
+        return tempMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCollectionViewCell", for: indexPath) as! SelectCollectionViewCell
-        let movies = allMovies[indexPath.row]
+        let movies = tempMovies[indexPath.row]
         cell.configureInfo(movie: movies)
 
         return cell
@@ -167,16 +198,14 @@ extension OneViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailViewController = DetailMovieViewController()
         detailViewController.loadViewIfNeeded()
-        let movies = allMovies[indexPath.row]
-        detailViewController.configureDetail(movie: movies)
-        detailViewController.configurarImagebig(movie: movies)
-        detailViewController.configurarImage(movie: movies)
+        let movie = tempMovies[indexPath.row]
+        detailViewController.configureDetail(movie: movie)
     
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 extension OneViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 410, height: 250)
     }
 }

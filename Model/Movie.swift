@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class SelectMovieOrTv: Mappable {
+final class Movie: Mappable {
     
     var originalTitle: String = ""
     var image: String = ""
@@ -24,12 +24,7 @@ class SelectMovieOrTv: Mappable {
     var dateTv: String = ""
     var trueName :String = ""
     
-    
-
-    
-    
-    required init?(map: Map) {
-    }
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         
@@ -39,13 +34,9 @@ class SelectMovieOrTv: Mappable {
         popular <- map["popularity"]
         voteAverage  <- map["vote_average"]
         date <- map["release_date"]
-        
         dateTv <- map["first_air_date"]
-        
-        
         originalTitle  <- map["original_title"]
         title <- map["title"]
-        
         originalName <- map["original_name"]
         name <- map["name"]
         
@@ -54,9 +45,6 @@ class SelectMovieOrTv: Mappable {
         } else {
             trueName = originalName
         }
-        
-        
-        
     }
 }
 

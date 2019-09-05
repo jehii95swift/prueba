@@ -8,21 +8,26 @@
 
 import UIKit
 
-class DetailMovieViewController: UIViewController {
-
-    @IBOutlet weak var titleMovieLbl: UILabel!
-    @IBOutlet weak var imageBigMovie: UIImageView!
-    @IBOutlet weak var overviewMovieLbl: UILabel!
-    @IBOutlet weak var smallTitleLbl: UILabel!
-    @IBOutlet weak var popularLbl: UILabel!
-    @IBOutlet weak var voteAverageLbl: UILabel!
-    @IBOutlet weak var dateMovieLbl: UILabel!
-    @IBOutlet weak var imageSmallMovie: UIImageView!
+final class DetailMovieViewController: UIViewController {
+    
+    private let imageUrl:String = "https://image.tmdb.org/t/p/w500"
+    @IBOutlet private weak var titleMovieLbl: UILabel!
+    @IBOutlet private weak var imageBigMovie: UIImageView!
+    @IBOutlet private weak var overviewMovieLbl: UILabel!
+    @IBOutlet private weak var smallTitleLbl: UILabel!
+    @IBOutlet private weak var popularLbl: UILabel!
+    @IBOutlet private weak var voteAverageLbl: UILabel!
+    @IBOutlet private weak var dateMovieLbl: UILabel!
+    @IBOutlet private weak var imageSmallMovie: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hero.isEnabled = true
     }
-    func configureDetail(movie: SelectMovieOrTv) {
+    
+    func configureDetail(movie: Movie) {
+        configurarImage(movie: movie)
+        configurarImagebig(movie: movie)
         
         overviewMovieLbl.text = movie.overview
         smallTitleLbl.text = "\(movie.title)"
@@ -31,6 +36,7 @@ class DetailMovieViewController: UIViewController {
         voteAverageLbl.text = "User Score: \(movie.voteAverage)%"
         smallTitleLbl.text = "\(movie.name)"
         dateMovieLbl.text = "Release Date: \(movie.dateTv)"
+        
         if movie.originalTitle.isEmpty {
             titleMovieLbl.text = movie.originalName
         } else {
@@ -42,9 +48,24 @@ class DetailMovieViewController: UIViewController {
             smallTitleLbl.text = movie.name
         }
     }
+}
+
+private extension DetailMovieViewController {
     
-    func configurarImage(movie: SelectMovieOrTv) {
-        let urlImage = "https://image.tmdb.org/t/p/w500\(movie.image)"
+    func configurarImagebig(movie: Movie) {
+        let urlImage = "\(imageUrl)\(movie.imageBig)"
+        let url = URL(string: urlImage)
+        let data = try? Data(contentsOf: url!)
+        
+        if let data = data {
+            let image = UIImage(data: data)
+            imageBigMovie.image = image
+            imageBigMovie.hero.id = "movieImage"
+        }
+    }
+    
+    func configurarImage(movie: Movie) {
+        let urlImage = "\(imageUrl)\(movie.image)"
         let url = URL(string: urlImage)
         let data = try? Data(contentsOf: url!)
         
@@ -53,16 +74,4 @@ class DetailMovieViewController: UIViewController {
             imageSmallMovie.image = image
         }
     }
-    
-    func configurarImagebig(movie: SelectMovieOrTv) {
-        let urlImage = "https://image.tmdb.org/t/p/w500\(movie.imageBig)"
-        let url = URL(string: urlImage)
-        let data = try? Data(contentsOf: url!)
-        
-        if let data = data {
-            let image = UIImage(data: data)
-            imageBigMovie.image = image
-        }
-    }
-
 }
