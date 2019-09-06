@@ -30,22 +30,22 @@ final class DetailMovieViewController: UIViewController {
         configurarImagebig(movie: movie)
         
         overviewMovieLbl.text = movie.overview
-        smallTitleLbl.text = "\(movie.title)"
+        smallTitleLbl.text = "\(movie.trueName)"
         dateMovieLbl.text = "Release Date: \(movie.date)"
         popularLbl.text = "Popularity: \(movie.popular)"
         voteAverageLbl.text = "User Score: \(movie.voteAverage)%"
-        smallTitleLbl.text = "\(movie.name)"
+        smallTitleLbl.text = "\(movie.trueName)"
         dateMovieLbl.text = "Release Date: \(movie.dateTv)"
         
-        if movie.originalTitle.isEmpty {
-            titleMovieLbl.text = movie.originalName
+        if movie.trueName.isEmpty {
+            titleMovieLbl.text = movie.trueName
         } else {
-            titleMovieLbl.text = movie.originalTitle
+            titleMovieLbl.text = movie.trueName
         }
-        if movie.name.isEmpty {
-            smallTitleLbl.text = movie.title
+        if movie.trueName.isEmpty {
+            smallTitleLbl.text = movie.trueName
         } else {
-            smallTitleLbl.text = movie.name
+            smallTitleLbl.text = movie.trueName
         }
     }
 }

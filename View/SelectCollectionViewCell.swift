@@ -20,10 +20,10 @@ final class SelectCollectionViewCell: UICollectionViewCell {
     }
     
     func configureInfo(movie: Movie) {
-        if movie.originalName.isEmpty {
-            titleLbl.text = movie.originalTitle
+        if movie.trueName.isEmpty {
+            titleLbl.text = movie.trueName
         } else {
-            titleLbl.text = movie.originalName
+            titleLbl.text = movie.trueName
         }
 
         let urlImage = "https://image.tmdb.org/t/p/w500\(movie.imageBig)"

@@ -11,16 +11,16 @@ import ObjectMapper
 
 final class Movie: Mappable {
     
-    var originalTitle: String = ""
+    private var originalTitle: String = ""
+    private var title: String = ""
+    private var originalName: String = ""
+    private var name: String = ""
     var image: String = ""
     var imageBig: String = ""
     var overview: String = ""
-    var title: String = ""
     var popular: Int = 0
     var voteAverage: Int = 0
     var date: String = ""
-    var originalName: String = ""
-    var name: String = ""
     var dateTv: String = ""
     var trueName :String = ""
     
