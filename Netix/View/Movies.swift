@@ -1,5 +1,5 @@
 //
-//  SelectCollectionViewCell.swift
+//  Movies.swift
 //  Netix
 //
 //  Created by Jenifer on 8/26/19.
@@ -9,11 +9,11 @@
 import UIKit
 import Hero
 
-final class SelectCollectionViewCell: UICollectionViewCell {
+final class Movies: UICollectionViewCell {
     
     @IBOutlet private weak var titleLbl: UILabel!
     @IBOutlet private weak var imageImg: UIImageView!
-    var pruebaRama = ""
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -16,7 +16,7 @@
 		A531C1E22310865800007AFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A531C1E12310865800007AFD /* AppDelegate.swift */; };
 		A531C1E92310865A00007AFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A531C1E82310865A00007AFD /* Assets.xcassets */; };
 		A531C1EC2310865A00007AFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A531C1EA2310865A00007AFD /* LaunchScreen.storyboard */; };
-		A57FA17A2314517C0012745F /* SelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57FA1782314517C0012745F /* SelectCollectionViewCell.swift */; };
+		A57FA17A2314517C0012745F /* Movies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57FA1782314517C0012745F /* Movies.swift */; };
 		A57FA17B2314517C0012745F /* SelectCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A57FA1792314517C0012745F /* SelectCollectionViewCell.xib */; };
 		A57FA1852314584E0012745F /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57FA1842314584E0012745F /* Controller.swift */; };
 		EB02F6F66CD1C879AB85191A /* Pods_Netix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B93D686706E253780689BAE /* Pods_Netix.framework */; };
@@ -38,7 +38,7 @@
 		A531C1E82310865A00007AFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A531C1EB2310865A00007AFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A531C1ED2310865A00007AFD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A57FA1782314517C0012745F /* SelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCollectionViewCell.swift; sourceTree = "<group>"; };
+		A57FA1782314517C0012745F /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
 		A57FA1792314517C0012745F /* SelectCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectCollectionViewCell.xib; sourceTree = "<group>"; };
 		A57FA1842314584E0012745F /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +100,7 @@
 			children = (
 				A50FCAA42314330D00F0F3E5 /* OneViewController.swift */,
 				A50FCAA52314330D00F0F3E5 /* OneViewController.xib */,
-				A57FA1782314517C0012745F /* SelectCollectionViewCell.swift */,
+				A57FA1782314517C0012745F /* Movies.swift */,
 				A57FA1792314517C0012745F /* SelectCollectionViewCell.xib */,
 				A50F1DDE2316CCDD007AA6C7 /* DetailMovieViewController.swift */,
 				A50F1DDF2316CCDD007AA6C7 /* DetailMovieViewController.xib */,
@@ -261,7 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A57FA17A2314517C0012745F /* SelectCollectionViewCell.swift in Sources */,
+				A57FA17A2314517C0012745F /* Movies.swift in Sources */,
 				A52199802314CBD1009F642D /* Services.swift in Sources */,
 				A531C1E22310865800007AFD /* AppDelegate.swift in Sources */,
 				A51A4D1C2315DCBA00BCE34D /* Movie.swift in Sources */,

@@ -177,7 +177,7 @@ final class OneViewController: UIViewController {
     }
 
     private func register(){
-        collectionView.register(UINib(nibName: "SelectCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "SelectCollectionViewCell")
+        collectionView.register(UINib(nibName: "Movies", bundle: nil), forCellWithReuseIdentifier: "Movies")
     }
 }
 
@@ -188,7 +188,7 @@ extension OneViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectCollectionViewCell", for: indexPath) as! SelectCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Movies", for: indexPath) as! Movies
         let movies = tempMovies[indexPath.row]
         cell.configureInfo(movie: movies)
 
