@@ -11,9 +11,9 @@ import Hero
 
 final class SelectCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet private weak var titleLbl: UILabel!
-    @IBOutlet private weak var imageImg: UIImageView!
-    var pruebaRama: String = ""
+    @IBOutlet private weak var tLbl: UILabel!
+   
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
