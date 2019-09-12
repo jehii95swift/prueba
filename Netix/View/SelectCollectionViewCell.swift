@@ -13,6 +13,7 @@ final class SelectCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var titleLbl: UILabel!
     @IBOutlet private weak var imageImg: UIImageView!
+    var pruebaRama: String = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
